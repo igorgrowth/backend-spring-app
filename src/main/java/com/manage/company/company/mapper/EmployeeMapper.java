@@ -1,0 +1,17 @@
+package com.manage.company.company.mapper;
+
+import com.manage.company.company.dto.EmployeeDTO;
+import com.manage.company.company.model.Employee;
+
+public class EmployeeMapper {
+    public static EmployeeDTO toDTO(Employee employee) {
+        return EmployeeDTO.builder()
+                .id(employee.getId())
+                .firstName(employee.getFirstName())
+                .lastName(employee.getLastName())
+                .email(employee.getEmail())
+                .position(employee.getPosition())
+                .project(employee.getProject())
+                .build();
+    }
+}
