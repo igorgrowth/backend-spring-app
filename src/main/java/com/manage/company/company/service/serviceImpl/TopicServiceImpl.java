@@ -31,7 +31,7 @@ public class TopicServiceImpl implements TopicService {
 
         Topic topic = TopicMapper.toEntity(topicDTO);
         Topic savedTopic = topicRepo.save(topic);
-        log.info("Saved Topic with ID: {}", savedTopic.getId());
+        log.info("Saved topic: {}", savedTopic);
         return TopicMapper.toDTO(savedTopic);
     }
 
@@ -48,7 +48,7 @@ public class TopicServiceImpl implements TopicService {
     public TopicDTO getById(Long id) {
         Topic topic = topicRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + id));
-        log.info("Found Topic with ID: {}", id);
+        log.info("Getting topic with id: {}", id);
         return TopicMapper.toDTO(topic);
     }
 
@@ -58,7 +58,7 @@ public class TopicServiceImpl implements TopicService {
         if (topic == null) {
             throw new ResourceNotFoundException("Topic", "Title: " + title);
         }
-        log.info("Found Topic with Title: {}", title);
+        log.info("Found topic with title: {}", title);
         return TopicMapper.toDTO(topic);
     }
 
@@ -67,7 +67,7 @@ public class TopicServiceImpl implements TopicService {
         Topic topic = topicRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + id));
         topicRepo.delete(topic);
-        log.info("Deleted Topic with ID: {}", id);
+        log.info("Deleted topic with id: {}", id);
         return TopicMapper.toDTO(topic);
     }
 
@@ -78,7 +78,7 @@ public class TopicServiceImpl implements TopicService {
         existingTopic.setTitle(topicDTO.getTitle());
         existingTopic.setDescription(topicDTO.getDescription());
         Topic updatedTopic = topicRepo.save(existingTopic);
-        log.info("Updated Topic with ID: {}", topicDTO.getId());
+        log.info("Updated topic", updatedTopic);
         return TopicMapper.toDTO(updatedTopic);
     }
 }

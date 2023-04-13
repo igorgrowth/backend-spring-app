@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface EmployeeService {
-    EmployeeDTO save(Employee employee );
+    EmployeeDTO save(EmployeeDTO employeeDTO );
     Page<EmployeeDTO> getAll(Pageable pageable);
     EmployeeDTO getById(Long id);
     EmployeeDTO getByEmail(String email);
     EmployeeDTO delete(Long id);
-    EmployeeDTO update(Employee employee);
+    EmployeeDTO update(EmployeeDTO employeeDTO);
 }

@@ -1,7 +1,6 @@
 package com.manage.company.company.service;
 
 import com.manage.company.company.dto.TopicDTO;
-import com.manage.company.company.model.Topic;
 
 import java.util.List;
 

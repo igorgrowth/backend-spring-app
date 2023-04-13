@@ -16,5 +16,15 @@ public class ProjectMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
+    public static Project toEntity(ProjectDTO projectDTO){
+        return Project.builder()
+                .id(projectDTO.getId())
+                .name(projectDTO.getName())
+                .employeeList(projectDTO.getEmployeeList()
+                        .stream()
+                        .map(EmployeeMapper::toEntity)
+                        .collect(Collectors.toList()))
+                .build();
+    }
 
 }

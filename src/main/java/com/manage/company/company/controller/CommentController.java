@@ -35,6 +35,7 @@ public class CommentController {
         return ResponseEntity.ok().body(commentsPage);
     }
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO commentDTO) {

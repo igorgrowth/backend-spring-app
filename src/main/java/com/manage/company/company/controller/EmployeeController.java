@@ -43,13 +43,19 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody Employee employee) {
-        return new ResponseEntity<>(employeeService.save(employee), HttpStatus.CREATED);
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        return new ResponseEntity<>(employeeService.save(employeeDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody Employee employee) {
-        return ResponseEntity.ok().body(employeeService.update(employee));
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+        employeeDTO.setId(id);
+        EmployeeDTO updatedEmployee = employeeService.update(employeeDTO);
+        if (updatedEmployee != null) {
+            return ResponseEntity.ok().body(updatedEmployee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}")

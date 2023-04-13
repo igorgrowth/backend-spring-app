@@ -3,7 +3,6 @@ package com.manage.company.company.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -14,4 +13,5 @@ public class TopicDTO {
     private String title;
 
     private String description;
+
 }

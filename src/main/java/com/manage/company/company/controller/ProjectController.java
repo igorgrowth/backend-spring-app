@@ -36,14 +36,20 @@ public class ProjectController {
 
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
-        public ResponseEntity<ProjectDTO> createProject(@RequestBody Project project) {
-            return new ResponseEntity<>(projectService.save(project), HttpStatus.CREATED);
+        public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) {
+            return new ResponseEntity<>(projectService.save(projectDTO), HttpStatus.CREATED);
         }
 
 
-        @PutMapping
-        public ResponseEntity<ProjectDTO> updateProject(@RequestBody Project project) {
-            return ResponseEntity.ok().body(projectService.update(project));
+        @PutMapping("/{id}")
+        public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @RequestBody ProjectDTO projectDTO) {
+            projectDTO.setId(id);
+            ProjectDTO updatedProject = projectService.update(projectDTO);
+            if (updatedProject != null) {
+                return ResponseEntity.ok().body(updatedProject);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         }
 
         @GetMapping("/{id}")

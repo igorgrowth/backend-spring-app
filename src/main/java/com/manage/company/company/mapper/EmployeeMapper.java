@@ -14,4 +14,14 @@ public class EmployeeMapper {
                 .project(employee.getProject())
                 .build();
     }
+    public static Employee toEntity(EmployeeDTO employeeDTO){
+        return Employee.builder()
+                .id(employeeDTO.getId())
+                .firstName(employeeDTO.getFirstName())
+                .lastName(employeeDTO.getLastName())
+                .email(employeeDTO.getEmail())
+                .position(employeeDTO.getPosition())
+                .project(employeeDTO.getProject())
+                .build();
+    }
 }

@@ -44,8 +44,6 @@ public class Topic {
         this.commentList = commentList;
     }
 
-    // Getters and Setters
-
     public void addComment(Comment comment) {
         commentList.add(comment);
         comment.setTopic(this);

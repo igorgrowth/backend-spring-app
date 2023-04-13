@@ -28,13 +28,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO save(Employee employee) {
+    public EmployeeDTO save(EmployeeDTO employeeDTO) {
+        Employee employee = EmployeeMapper.toEntity(employeeDTO);
         Optional<Employee> existingEmployee = employeeRepo.findByEmail(employee.getEmail());
         if (existingEmployee.isPresent()) {
             throw new EntityAlreadyExistException("Email", employee.getEmail() + " already exists."  );
         }
-        log.info("Saving employee: {}", employee);
         Employee savedEmployee = employeeRepo.save(employee);
+        log.info("Saving employee: {}", savedEmployee);
         return EmployeeMapper.toDTO(savedEmployee);
     }
 
@@ -61,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO getByEmail(String email) {
         Employee employee = employeeRepo.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee ", "email: " + email));
-        log.info("Getting employee by email: {}", email);
+        log.info("Getting employee by email: {}", employee);
         return EmployeeMapper.toDTO(employee);
     }
 
@@ -75,17 +76,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO update(Employee employee) {
-
+    public EmployeeDTO update(EmployeeDTO employeeDTO) {
+        Employee employee = EmployeeMapper.toEntity(employeeDTO);
         Employee existingEmployee = employeeRepo.findById(employee.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Employee ", "id: " + employee.getId()));
+        existingEmployee.setId(employee.getId());
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setEmail(employee.getEmail());
         existingEmployee.setPosition(employee.getPosition());
         existingEmployee.setProject(employee.getProject());
         Employee updatedEmployee = employeeRepo.save(existingEmployee);
-        log.info("Updating employee: {}", employee);
+        log.info("Updated employee: {}", updatedEmployee);
         return EmployeeMapper.toDTO(updatedEmployee);
     }
 }
