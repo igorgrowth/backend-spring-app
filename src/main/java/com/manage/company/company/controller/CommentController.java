@@ -1,6 +1,7 @@
 package com.manage.company.company.controller;
 import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.service.CommentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("${url}/comment")
 public class CommentController {
 
