@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
@@ -19,6 +20,7 @@ import java.util.List;
 @Builder
 @ToString(exclude = {"employeeList"})
 @EqualsAndHashCode(exclude = {"employeeList"})
+@Table(name="projects")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
