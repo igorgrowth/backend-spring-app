@@ -61,17 +61,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
-                    .and()
+                .and()
                 .csrf()
-                    .disable()
+                .disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(unauthorizedHandler)
-                    .and()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                    .antMatchers("/",
+                .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
                         "/**/*.gif",
@@ -80,15 +80,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js")
-                        .permitAll()
-                    .antMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-resources/**", "/swagger.json", "/swagger-ui/**")
-                        .permitAll()
-                    .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
-                        .permitAll()
-                    .antMatchers( "/api/users/**", "/api/project/**")
-                        .permitAll()
-                    .anyRequest()
-                        .authenticated();
+                .permitAll()
+                .antMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-resources/**", "/swagger.json", "/swagger-ui/**")
+                .permitAll()
+                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/api/users/**", "/api/project/**")
+                .hasRole("ADMIN")
+                .anyRequest()
+                .authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

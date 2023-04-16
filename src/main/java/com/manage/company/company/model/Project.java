@@ -25,7 +25,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, columnDefinition = "VARCHAR(255) DEFAULT 'Unknown'", unique = true)
     private String name;
 
     @OneToMany(mappedBy = "project")

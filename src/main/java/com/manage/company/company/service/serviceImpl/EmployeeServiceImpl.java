@@ -5,6 +5,7 @@ import com.manage.company.company.exeption.EntityAlreadyExistException;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.EmployeeMapper;
 import com.manage.company.company.model.Employee;
+import com.manage.company.company.model.Project;
 import com.manage.company.company.repository.EmployeeRepo;
 import com.manage.company.company.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (existingEmployee.isPresent()) {
             throw new EntityAlreadyExistException("Email", employee.getEmail() + " already exists."  );
         }
+
         Employee savedEmployee = employeeRepo.save(employee);
         log.info("Saving employee: {}", savedEmployee);
         return EmployeeMapper.toDTO(savedEmployee);

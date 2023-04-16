@@ -28,6 +28,7 @@ import javax.persistence.UniqueConstraint;
 @ToString(exclude = {"project"})
 @EqualsAndHashCode(exclude = {"project"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employees")
 public class Employee {
     @Id
@@ -44,14 +45,21 @@ public class Employee {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "project_id")
+
     private Project project;
 
-    public Employee(Long id, String firstName, String lastName, String email, Position position, Project project) {
-        this.id = id;
+    public Employee( String firstName, String lastName, String email, Position position, Project project) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.position = position;
         this.project = project;
+    }
+
+    public Employee(String firstName, String lastName, String email, Position position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.position = position;
     }
 }

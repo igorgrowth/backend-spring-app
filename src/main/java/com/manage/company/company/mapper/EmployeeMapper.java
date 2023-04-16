@@ -11,7 +11,7 @@ public class EmployeeMapper {
                 .lastName(employee.getLastName())
                 .email(employee.getEmail())
                 .position(employee.getPosition())
-                .project(employee.getProject())
+                .projectDTO(ProjectMapper.toDTO(employee.getProject() != null ? employee.getProject() : null))
                 .build();
     }
     public static Employee toEntity(EmployeeDTO employeeDTO){
@@ -21,7 +21,7 @@ public class EmployeeMapper {
                 .lastName(employeeDTO.getLastName())
                 .email(employeeDTO.getEmail())
                 .position(employeeDTO.getPosition())
-                .project(employeeDTO.getProject())
+                .project(employeeDTO.getProjectDTO() != null ? ProjectMapper.toEntity(employeeDTO.getProjectDTO()) : null)
                 .build();
     }
 }
