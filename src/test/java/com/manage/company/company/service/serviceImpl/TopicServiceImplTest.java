@@ -54,7 +54,7 @@ class TopicServiceImplTest {
                         .build();
     }
     @Test
-    void save_ShouldSaveAndReturnTopicDTO() {
+    void save_ShouldSaveTopicDTO() {
         //When
         when(topicRepo.save(any(Topic.class))).thenReturn(topic);
 
@@ -69,6 +69,7 @@ class TopicServiceImplTest {
 
     @Test
     void findAll_ShouldReturnListOfTopicDTOs() {
+        //Setup
         List<Topic> topics = new ArrayList<>();
         topics.add(topic);
 
@@ -100,8 +101,8 @@ class TopicServiceImplTest {
     }
 
     @Test
-    public void testGetById_NonExistingTopicId_ShouldThrowResourceNotFoundException() {
-
+    public void testGetById_ShouldThrowResourceNotFoundException() {
+        //Setup
         Long topicId = 1L;
 
         //When
@@ -113,6 +114,7 @@ class TopicServiceImplTest {
 
     @Test
     void getByTitle_ShouldReturnTopicDTO() {
+        //Setup
         String testTitle = "test title";
         //When
         when(topicRepo.findByTitle(testTitle)).thenReturn(topic);
@@ -128,7 +130,7 @@ class TopicServiceImplTest {
 
     @Test
     public void testGetByTitle_ShouldThrowResourceNotFoundException() {
-
+        //Setup
         String topicTitle = "Non existing Topic";
 
         when(topicRepo.findByTitle(topicTitle)).thenReturn(null);
@@ -140,6 +142,7 @@ class TopicServiceImplTest {
 
     @Test
     void delete_ShouldDeleteTopicDTO() {
+        //Setup
         Long id = 1L;
         //When
         when(topicRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(topic));
@@ -155,8 +158,8 @@ class TopicServiceImplTest {
     }
 
     @Test
-    void update() {
-
+    void update_ShouldUpdateTopicDTO() {
+        //Setup
         TopicDTO updatedTopicDTO = new TopicDTO(1L, "Updated title", "Updated description", Collections.emptyList());
 
         //When
@@ -167,7 +170,7 @@ class TopicServiceImplTest {
         // Assert
         assertNotNull(result);
         assertEquals(updatedTopicDTO.getId(), result.getId());
-        //assertEquals(updatedTopicDTO.getTitle(), result.getTitle());
+        assertEquals(updatedTopicDTO.getTitle(), result.getTitle());
         assertEquals(updatedTopicDTO.getDescription(), result.getDescription());
     }
 }

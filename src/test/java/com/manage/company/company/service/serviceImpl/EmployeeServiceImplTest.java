@@ -65,7 +65,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    void save_ShouldSaveAndReturnEmployeeDTO() {
+    void save_ShouldSaveEmployeeDTO() {
         //When
         when(employeeRepo.findByEmail(employee.getEmail())).thenReturn(Optional.empty());
         when(employeeRepo.save(any(Employee.class))).thenReturn(employee);

@@ -3,23 +3,20 @@ package com.manage.company.company.service.serviceImpl;
 import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.dto.TopicDTO;
 import com.manage.company.company.exeption.ResourceNotFoundException;
+import com.manage.company.company.mapper.TopicMapper;
 import com.manage.company.company.model.Comment;
 import com.manage.company.company.model.Topic;
 import com.manage.company.company.repository.CommentRepo;
 import com.manage.company.company.repository.TopicRepo;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -37,7 +34,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class CommentServiceImplTest {
 
@@ -60,12 +56,12 @@ class CommentServiceImplTest {
 
         comment =
                 comment.builder()
-                .id(1L)
-                .text("test text")
-                .date(LocalDateTime.now())
-                .topic(topic)
-                .userId(1L)
-                .build();
+                        .id(1L)
+                        .text("test text")
+                        .date(LocalDateTime.now())
+                        .topic(topic)
+                        .userId(1L)
+                        .build();
         commentDTO =
                 commentDTO.builder()
                         .id(1L)
@@ -77,7 +73,8 @@ class CommentServiceImplTest {
     }
 
     @Test
-    void save_ShouldReturnSavedCommentDTO() {
+    void save_ShouldSaveCommentDTO() {
+        //Setup
         Topic topic = new Topic(1L, "title", "description", Collections.emptyList());
 
         //When
@@ -105,6 +102,7 @@ class CommentServiceImplTest {
 
     @Test
     void getAll_ShouldReturnCommentDTOPage() {
+        //Setup
         int totalComments = 5;
         int pageSize = 3;
         int pageNumber = 1;
@@ -174,10 +172,14 @@ class CommentServiceImplTest {
 
     @Test
     void update_ShouldUpdateCommentDTO() {
-        CommentDTO updatedCommentDTO = new CommentDTO(1L,"updated text", LocalDateTime.now(), new TopicDTO(), 1L );
+        //Setup
+        TopicDTO topicDTO = new TopicDTO(1L, "title", "description", new ArrayList<>());
+        CommentDTO updatedCommentDTO = new CommentDTO(1L, "updated text", LocalDateTime.now(), topicDTO, 1L);
 
         //When
+        when(topicRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(TopicMapper.toEntity(topicDTO)));
         when(commentRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(comment));
+
         when(commentRepo.save(any(Comment.class))).thenReturn(comment);
 
         CommentDTO result = commentService.update(updatedCommentDTO);
@@ -191,7 +193,8 @@ class CommentServiceImplTest {
     }
 
     @Test
-    void findByTopicTitl_ShouldReturnCommentDTO() {
+    void findByTopicTitle_ShouldReturnCommentDTO() {
+        //Setup
         List<Comment> comments = new ArrayList<>();
         comments.add(comment);
         Pageable pageable = Pageable.ofSize(10).withPage(0);
@@ -214,7 +217,8 @@ class CommentServiceImplTest {
     }
 
     @Test
-    void findByUserId() {
+    void findByUserId_ShouldReturnCommentDTO() {
+        //Setup
         List<Comment> comments = new ArrayList<>();
         comments.add(comment);
         Pageable pageable = Pageable.ofSize(10).withPage(0);

@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -70,6 +71,7 @@ class ProjectServiceImplTest {
 
     @Test
     void findAll_ShouldReturnListOfProjectDTO() {
+        //Setup
         List<Project> projects = new ArrayList<>();
         projects.add(project);
         projects.add(new Project(2L, "Project 2", Collections.emptyList()));
@@ -103,7 +105,8 @@ class ProjectServiceImplTest {
 
     @Test
     void getById_ShouldThrowResourceNotFoundException() {
-        Long id = 99L;
+        //Setup
+        Long id = 999L;
 
         //When
         when(projectRepo.findById(id)).thenReturn(Optional.empty());
@@ -114,6 +117,7 @@ class ProjectServiceImplTest {
 
     @Test
     void getByName_ShouldReturnProjectDTO() {
+        //Setup
         String testName = "test name";
         //When
         when(projectRepo.findByName(testName)).thenReturn(Optional.of(project));
@@ -128,10 +132,10 @@ class ProjectServiceImplTest {
 
     @Test
     void getByName_ShouldThrowResourceNotFoundException() {
-
+        //Setup
         String name = "NonExistingProject";
         //When
-        when(projectRepo.findByName(name)).thenReturn(Optional.empty());
+        when(projectRepo.findByName(anyString())).thenReturn(Optional.empty());
 
         // Assert
         assertThrows(ResourceNotFoundException.class, () -> projectService.getByName(name));
@@ -139,7 +143,7 @@ class ProjectServiceImplTest {
 
     @Test
     void update_ShouldUpdateProject() {
-
+        //Setup
         ProjectDTO updatedProjectDTO =  new ProjectDTO(1L, "Updated Project", Collections.emptyList());
 
         //When
@@ -156,16 +160,12 @@ class ProjectServiceImplTest {
 
     @Test
     void delete_ShouldDeleteProject() {
+        //When
+        when(projectRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(project));
 
-        Long id = 1L;
-        Project project = new Project();
-        project.setId(id);
-        project.setName("TestProject");
-        when(projectRepo.findById(id)).thenReturn(Optional.of(project));
+        ProjectDTO result = projectService.delete(1L);
 
-        ProjectDTO result = projectService.delete(id);
-
-        // Assert
+        //Assert
         assertNotNull(result);
         assertEquals(project.getId(), result.getId());
         assertEquals(project.getName(), result.getName());
