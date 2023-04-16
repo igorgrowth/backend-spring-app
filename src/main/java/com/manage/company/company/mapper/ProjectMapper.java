@@ -19,7 +19,7 @@ public class ProjectMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
-    public static Project toEntity(ProjectDTO projectDTO){
+    public static Project toEntity(ProjectDTO projectDTO) {
         return Project.builder()
                 .id(projectDTO.getId())
                 .name(projectDTO.getName())

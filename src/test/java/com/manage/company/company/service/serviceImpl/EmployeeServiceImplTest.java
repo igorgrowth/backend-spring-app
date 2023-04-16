@@ -59,7 +59,6 @@ class EmployeeServiceImplTest {
                         .lastName("testLastName")
                         .email("test@mail.com")
                         .position(Position.BACKEND)
-                        .projectDTO(new ProjectDTO())
                         .build();
 
 
@@ -171,7 +170,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    public void testDelete_NonExistingId_ShouldThrowResourceNotFoundException() {
+    public void testDelete_ShouldThrowResourceNotFoundException() {
         //When
         when(employeeRepo.findById(any(Long.TYPE))).thenReturn(Optional.empty());
 
@@ -183,7 +182,7 @@ class EmployeeServiceImplTest {
     @Test
     void update_ShouldUpdateEmployeeDTO() {
 
-        EmployeeDTO updatedEmployeeDTO = new EmployeeDTO(1L, "upFirstName", "upSecondName", "up@mail.com", Position.DEVOPS, new ProjectDTO());
+        EmployeeDTO updatedEmployeeDTO = new EmployeeDTO(1L, "upFirstName", "upSecondName", "up@mail.com", Position.DEVOPS);
 
         //When
         when(employeeRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(employee));
@@ -198,6 +197,5 @@ class EmployeeServiceImplTest {
         assertEquals(updatedEmployeeDTO.getLastName(), result.getLastName());
         assertEquals(updatedEmployeeDTO.getEmail(), result.getEmail());
         assertEquals(updatedEmployeeDTO.getPosition(), result.getPosition());
-        assertEquals(updatedEmployeeDTO.getProjectDTO(), result.getProjectDTO());
     }
 }

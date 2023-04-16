@@ -7,6 +7,7 @@ import com.manage.company.company.mapper.EmployeeMapper;
 import com.manage.company.company.model.Employee;
 import com.manage.company.company.model.Project;
 import com.manage.company.company.repository.EmployeeRepo;
+import com.manage.company.company.repository.ProjectRepo;
 import com.manage.company.company.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,10 +23,12 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
+    private final ProjectRepo projectRepo;
 
 
-    public EmployeeServiceImpl(EmployeeRepo employeeRepo) {
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo, ProjectRepo projectRepo) {
         this.employeeRepo = employeeRepo;
+        this.projectRepo = projectRepo;
     }
 
     @Override

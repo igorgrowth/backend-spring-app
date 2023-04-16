@@ -1,5 +1,6 @@
 package com.manage.company.company.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manage.company.company.model.Project;
 import com.manage.company.company.model.enums.Position;
 import lombok.AllArgsConstructor;
@@ -15,5 +16,5 @@ public class EmployeeDTO {
     private String lastName;
     private String email;
     private Position position;
-    private ProjectDTO projectDTO;
+
 }

@@ -36,7 +36,7 @@ public class ProjectController {
         }
 
         @GetMapping
-        @PreAuthorize("hasRole('USER')")
+        //@PreAuthorize("hasRole('USER')")
         public ResponseEntity<List<ProjectDTO>> getProjects() {
             return ResponseEntity.ok().body(projectService.findAll());
         }
@@ -60,7 +60,6 @@ public class ProjectController {
         }
 
         @GetMapping("/{id}")
-        @PreAuthorize("hasRole('ADMIN')")
         public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Long id) {
             return ResponseEntity.ok().body(projectService.getById(id));
         }

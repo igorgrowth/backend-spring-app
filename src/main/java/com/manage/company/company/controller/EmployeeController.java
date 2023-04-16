@@ -46,9 +46,6 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        if(employeeDTO.getProjectDTO().getId() == null){
-            employeeDTO.setProjectDTO(null);
-        }
         return new ResponseEntity<>(employeeService.save(employeeDTO), HttpStatus.CREATED);
     }
 

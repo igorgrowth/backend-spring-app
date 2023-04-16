@@ -40,12 +40,13 @@ public class Employee {
 
     @Column(nullable = false, unique = true)
     private String email;
+
     @Enumerated(EnumType.STRING)
     private Position position;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "project_id")
-
     private Project project;
 
     public Employee( String firstName, String lastName, String email, Position position, Project project) {
