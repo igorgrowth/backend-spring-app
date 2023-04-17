@@ -1,11 +1,10 @@
 package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.EmployeeDTO;
-import com.manage.company.company.dto.ProjectDTO;
 import com.manage.company.company.exeption.ResourceNotFoundException;
-import com.manage.company.company.model.Employee;
-import com.manage.company.company.model.Project;
-import com.manage.company.company.model.enums.Position;
+import com.manage.company.company.entity.Employee;
+import com.manage.company.company.entity.Project;
+import com.manage.company.company.entity.enums.Position;
 import com.manage.company.company.repository.EmployeeRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

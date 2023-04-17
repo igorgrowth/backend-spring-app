@@ -1,6 +1,6 @@
-package com.manage.company.company.model;
+package com.manage.company.company.entity;
 
-import com.manage.company.company.model.enums.RoleName;
+import com.manage.company.company.entity.enums.RoleName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

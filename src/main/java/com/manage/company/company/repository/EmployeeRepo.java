@@ -1,6 +1,6 @@
 package com.manage.company.company.repository;
 
-import com.manage.company.company.model.Employee;
+import com.manage.company.company.entity.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

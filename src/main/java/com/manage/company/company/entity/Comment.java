@@ -1,4 +1,4 @@
-package com.manage.company.company.model;
+package com.manage.company.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;

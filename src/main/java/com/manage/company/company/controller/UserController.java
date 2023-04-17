@@ -1,7 +1,7 @@
 package com.manage.company.company.controller;
 
 import com.manage.company.company.exeption.ResourceNotFoundException;
-import com.manage.company.company.model.User;
+import com.manage.company.company.entity.User;
 import com.manage.company.company.payload.UserIdentityAvailability;
 import com.manage.company.company.payload.UserProfile;
 import com.manage.company.company.payload.UserSummary;
@@ -9,6 +9,7 @@ import com.manage.company.company.repository.UserRepo;
 import com.manage.company.company.security.CurrentUser;
 import com.manage.company.company.security.UserPrincipal;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("${url}")
 public class UserController {
 
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
 
     @GetMapping("/user/me")

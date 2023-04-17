@@ -1,11 +1,9 @@
 package com.manage.company.company.controller;
 
 import com.manage.company.company.dto.EmployeeDTO;
-import com.manage.company.company.model.Employee;
-import com.manage.company.company.repository.EmployeeRepo;
 import com.manage.company.company.service.EmployeeService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,15 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@RequestMapping("${url}/employee")
+@RequestMapping("${url}/employees")
 public class EmployeeController {
 
-    private EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    private final EmployeeService employeeService;
 
     @GetMapping
     public ResponseEntity<Page<EmployeeDTO>> getEmployees(@RequestParam(defaultValue = "0") int page,

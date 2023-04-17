@@ -1,10 +1,10 @@
 package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.TopicDTO;
+import com.manage.company.company.entity.Topic;
 import com.manage.company.company.exeption.EntityAlreadyExistException;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.TopicMapper;
-import com.manage.company.company.model.Topic;
 import com.manage.company.company.repository.TopicRepo;
 import com.manage.company.company.service.TopicService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class TopicServiceImpl implements TopicService {

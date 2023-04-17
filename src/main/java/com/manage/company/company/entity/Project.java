@@ -1,4 +1,4 @@
-package com.manage.company.company.model;
+package com.manage.company.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class Project {
     @Column(nullable = true, columnDefinition = "VARCHAR(255) DEFAULT 'Unknown'", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     List<Employee> employeeList = new ArrayList<>();
 
