@@ -1,7 +1,7 @@
 package com.manage.company.company.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.manage.company.company.model.User;
+import com.manage.company.company.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

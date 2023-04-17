@@ -1,7 +1,7 @@
 package com.manage.company.company.security;
 
 import com.manage.company.company.exeption.ResourceNotFoundException;
-import com.manage.company.company.model.User;
+import com.manage.company.company.entity.User;
 import com.manage.company.company.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

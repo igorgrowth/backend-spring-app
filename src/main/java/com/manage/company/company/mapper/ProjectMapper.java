@@ -1,7 +1,7 @@
 package com.manage.company.company.mapper;
 
 import com.manage.company.company.dto.ProjectDTO;
-import com.manage.company.company.model.Project;
+import com.manage.company.company.entity.Project;
 
 import java.util.stream.Collectors;
 

@@ -1,9 +1,9 @@
 package com.manage.company.company.controller;
 
 import com.manage.company.company.exeption.AppException;
-import com.manage.company.company.model.Role;
-import com.manage.company.company.model.User;
-import com.manage.company.company.model.enums.RoleName;
+import com.manage.company.company.entity.Role;
+import com.manage.company.company.entity.User;
+import com.manage.company.company.entity.enums.RoleName;
 import com.manage.company.company.payload.ApiResponse;
 import com.manage.company.company.payload.JwtAuthenticationResponse;
 import com.manage.company.company.payload.LoginRequest;

@@ -1,6 +1,6 @@
 package com.manage.company.company.repository;
 
-import com.manage.company.company.model.Project;
+import com.manage.company.company.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

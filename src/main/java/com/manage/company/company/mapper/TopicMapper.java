@@ -2,7 +2,7 @@ package com.manage.company.company.mapper;
 
 
 import com.manage.company.company.dto.TopicDTO;
-import com.manage.company.company.model.Topic;
+import com.manage.company.company.entity.Topic;
 
 public class TopicMapper {
 

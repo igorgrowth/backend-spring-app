@@ -1,21 +1,14 @@
 package com.manage.company.company.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.manage.company.company.dto.EmployeeDTO;
-import com.manage.company.company.model.Employee;
-import com.manage.company.company.model.Project;
-import com.manage.company.company.model.enums.Position;
-import com.manage.company.company.repository.EmployeeRepo;
-import com.manage.company.company.security.CustomUserDetailsService;
+import com.manage.company.company.entity.enums.Position;
 import com.manage.company.company.service.EmployeeService;
-import com.manage.company.company.service.serviceImpl.EmployeeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
@@ -24,7 +17,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -82,7 +74,7 @@ class EmployeeControllerTest {
         String requestJson = objectMapper.writeValueAsString(employeeDTO);
 
         // Perform POST request
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/employee")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/employees")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isCreated())
@@ -101,7 +93,7 @@ class EmployeeControllerTest {
         when(employeeService.getAll(pageable)).thenReturn(employeesPage);
 
         // Perform GET request
-        mockMvc.perform(get("/api/employee")
+        mockMvc.perform(get("/api/employees")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -121,7 +113,7 @@ class EmployeeControllerTest {
         // When
         when(employeeService.getById(eq(employeeId))).thenReturn(expectedEmployee);
 
-        MvcResult result = mockMvc.perform(get("/api/employee/{id}", employeeId))
+        MvcResult result = mockMvc.perform(get("/api/employees/{id}", employeeId))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -141,7 +133,7 @@ class EmployeeControllerTest {
         when(employeeService.delete(eq(employeeId))).thenReturn(expectedDeletedEmployee);
 
 
-        MvcResult result = mockMvc.perform(delete("/api/employee/{id}", employeeId))
+        MvcResult result = mockMvc.perform(delete("/api/employees/{id}", employeeId))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -160,7 +152,7 @@ class EmployeeControllerTest {
         //When
         when(employeeService.getByEmail(eq(email))).thenReturn(expectedEmployee);
 
-        MvcResult result = mockMvc.perform(get("/api/employee/byEmail/{email}", email))
+        MvcResult result = mockMvc.perform(get("/api/employees/byEmail/{email}", email))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -180,7 +172,7 @@ class EmployeeControllerTest {
         //When
         when(employeeService.update(any(EmployeeDTO.class))).thenReturn(updatedEmployee);
 
-        MvcResult result = mockMvc.perform(put("/api/employee/{id}", employeeId)
+        MvcResult result = mockMvc.perform(put("/api/employees/{id}", employeeId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedEmployee)))
                 .andExpect(status().isOk())

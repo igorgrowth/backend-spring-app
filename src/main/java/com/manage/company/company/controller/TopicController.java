@@ -2,6 +2,7 @@ package com.manage.company.company.controller;
 import com.manage.company.company.dto.TopicDTO;
 import com.manage.company.company.service.TopicService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,15 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("${url}/topic")
 public class TopicController {
 
     private final TopicService topicService;
 
-    public TopicController(TopicService topicService) {
-        this.topicService = topicService;
-    }
 
     @GetMapping
     public ResponseEntity<List<TopicDTO>> getAllTopics() {

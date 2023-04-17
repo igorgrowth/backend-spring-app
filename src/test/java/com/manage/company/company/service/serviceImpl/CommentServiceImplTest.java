@@ -4,8 +4,8 @@ import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.dto.TopicDTO;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.TopicMapper;
-import com.manage.company.company.model.Comment;
-import com.manage.company.company.model.Topic;
+import com.manage.company.company.entity.Comment;
+import com.manage.company.company.entity.Topic;
 import com.manage.company.company.repository.CommentRepo;
 import com.manage.company.company.repository.TopicRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,7 +67,6 @@ class CommentServiceImplTest {
                         .id(1L)
                         .text("test text")
                         .date(LocalDateTime.now())
-                        .topicDTO(topicDTO)
                         .userId(1L)
                         .build();
     }
@@ -80,7 +79,7 @@ class CommentServiceImplTest {
         //When
         when(topicRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(topic));
         when(commentRepo.save(any(Comment.class))).thenReturn(comment);
-        CommentDTO result = commentService.save(commentDTO);
+        CommentDTO result = commentService.save(commentDTO, 1L);
 
         // Assert
         assertNotNull(result);
@@ -88,7 +87,6 @@ class CommentServiceImplTest {
         assertEquals(commentDTO.getText(), result.getText());
         assertEquals(commentDTO.getDate().getMinute(), result.getDate().getMinute());
         assertEquals(commentDTO.getUserId(), result.getUserId());
-        assertEquals(commentDTO.getTopicDTO().getId(), result.getTopicDTO().getId());
     }
 
     @Test
@@ -97,7 +95,7 @@ class CommentServiceImplTest {
         when(topicRepo.findById(999L)).thenReturn(Optional.empty());
 
         //Assert
-        assertThrows(ResourceNotFoundException.class, () -> commentService.save(commentDTO));
+        assertThrows(ResourceNotFoundException.class, () -> commentService.save(commentDTO, 1L));
     }
 
     @Test
@@ -124,7 +122,6 @@ class CommentServiceImplTest {
         assertEquals(commentDTO.getText(), result.getContent().get(0).getText());
         assertEquals(commentDTO.getDate().getMinute(), result.getContent().get(0).getDate().getMinute());
         assertEquals(commentDTO.getUserId(), result.getContent().get(0).getUserId());
-        assertEquals(commentDTO.getTopicDTO().getId(), result.getContent().get(0).getTopicDTO().getId());
     }
 
     @Test
@@ -140,7 +137,6 @@ class CommentServiceImplTest {
         assertEquals(commentDTO.getText(), result.getText());
         assertEquals(commentDTO.getDate().getMinute(), result.getDate().getMinute());
         assertEquals(commentDTO.getUserId(), result.getUserId());
-        assertEquals(commentDTO.getTopicDTO().getId(), result.getTopicDTO().getId());
     }
 
     @Test
@@ -155,7 +151,7 @@ class CommentServiceImplTest {
         assertEquals(commentDTO.getText(), result.getText());
         assertEquals(commentDTO.getDate().getMinute(), result.getDate().getMinute());
         assertEquals(commentDTO.getUserId(), result.getUserId());
-        assertEquals(commentDTO.getTopicDTO().getId(), result.getTopicDTO().getId());
+        //assertEquals(commentDTO.getTopicDTO().getId(), result.getTopicDTO().getId());
         verify(commentRepo, times(1)).delete(comment);
 
     }
@@ -174,7 +170,7 @@ class CommentServiceImplTest {
     void update_ShouldUpdateCommentDTO() {
         //Setup
         TopicDTO topicDTO = new TopicDTO(1L, "title", "description", new ArrayList<>());
-        CommentDTO updatedCommentDTO = new CommentDTO(1L, "updated text", LocalDateTime.now(), topicDTO, 1L);
+        CommentDTO updatedCommentDTO = new CommentDTO(1L, "updated text", LocalDateTime.now(), 1L, 1L);
 
         //When
         when(topicRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(TopicMapper.toEntity(topicDTO)));
@@ -182,7 +178,7 @@ class CommentServiceImplTest {
 
         when(commentRepo.save(any(Comment.class))).thenReturn(comment);
 
-        CommentDTO result = commentService.update(updatedCommentDTO);
+        CommentDTO result = commentService.update(updatedCommentDTO, 1L);
 
         // Assert
         assertNotNull(result);

@@ -1,13 +1,12 @@
-package com.manage.company.company.model;
+package com.manage.company.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.manage.company.company.model.enums.Position;
+import com.manage.company.company.entity.enums.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -20,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Data

@@ -1,7 +1,5 @@
 package com.manage.company.company.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.manage.company.company.model.Topic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +13,6 @@ public class CommentDTO {
     private Long id;
     private String text;
     private LocalDateTime date;
-    private TopicDTO topicDTO;
+    private Long topicId;
     private Long userId;
 }

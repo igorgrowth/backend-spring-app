@@ -1,9 +1,7 @@
-package com.manage.company.company.model;
+package com.manage.company.company.entity;
 
-import com.manage.company.company.model.enums.Status;
+import com.manage.company.company.entity.enums.Status;
 import lombok.*;
-
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor

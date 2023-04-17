@@ -3,11 +3,10 @@ package com.manage.company.company.service.serviceImpl;
 import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.CommentMapper;
-import com.manage.company.company.model.Comment;
-import com.manage.company.company.model.Topic;
+import com.manage.company.company.entity.Comment;
+import com.manage.company.company.entity.Topic;
 import com.manage.company.company.repository.CommentRepo;
 import com.manage.company.company.repository.TopicRepo;
-import com.manage.company.company.security.UserPrincipal;
 import com.manage.company.company.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,16 +31,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO save(CommentDTO commentDTO) {
+    public CommentDTO save(CommentDTO commentDTO, long topicId) {
         Comment comment = new Comment();
         comment.setText(commentDTO.getText());
         comment.setDate(LocalDateTime.now());
         comment.setUserId(commentDTO.getUserId());
 
-        Topic topic = topicRepo.findById(commentDTO.getTopicDTO().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + commentDTO.getTopicDTO().getId()));
-        comment.setTopic(topic);
+        Topic topic = topicRepo.findById(topicId)
+                .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + topicId));
 
+        comment.setTopic(topic);
+        comment.setTopic(topic);
         Comment savedComment = commentRepo.save(comment);
         log.info("Comment saved: {}", savedComment);
         return CommentMapper.toDTO(savedComment);
@@ -75,13 +75,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO update(CommentDTO commentDTO) {
+    public CommentDTO update(CommentDTO commentDTO, Long topicId) {
         Comment existingComment = commentRepo.findById(commentDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Comment", "id: " + commentDTO.getId()));
         existingComment.setText(commentDTO.getText());
 
-        Topic topic = topicRepo.findById(commentDTO.getTopicDTO().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + commentDTO.getTopicDTO().getId()));
+        Topic topic = topicRepo.findById(topicId)
+                .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + topicId));
         existingComment.setTopic(topic);
 
         Comment updatedComment = commentRepo.save(existingComment);

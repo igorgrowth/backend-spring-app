@@ -1,8 +1,6 @@
 package com.manage.company.company.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.manage.company.company.model.Project;
-import com.manage.company.company.model.enums.Position;
+import com.manage.company.company.entity.enums.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

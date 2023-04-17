@@ -1,8 +1,7 @@
 package com.manage.company.company.mapper;
 
 import com.manage.company.company.dto.EmployeeDTO;
-import com.manage.company.company.model.Employee;
-import com.manage.company.company.model.Project;
+import com.manage.company.company.entity.Employee;
 
 public class EmployeeMapper {
 

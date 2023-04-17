@@ -4,8 +4,9 @@ import com.manage.company.company.dto.ProjectDTO;
 import com.manage.company.company.exeption.EntityAlreadyExistException;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.ProjectMapper;
-import com.manage.company.company.model.Employee;
-import com.manage.company.company.model.Project;
+import com.manage.company.company.entity.Employee;
+import com.manage.company.company.entity.Project;
+import com.manage.company.company.repository.EmployeeRepo;
 import com.manage.company.company.repository.ProjectRepo;
 import com.manage.company.company.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,16 +22,18 @@ import java.util.stream.Collectors;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepo projectRepo;
+    private final EmployeeRepo employeeRepo;
 
-    public ProjectServiceImpl(ProjectRepo projectRepo) {
+    public ProjectServiceImpl(ProjectRepo projectRepo, EmployeeRepo employeeRepo) {
         this.projectRepo = projectRepo;
+        this.employeeRepo = employeeRepo;
     }
 
     @Override
     public ProjectDTO save(ProjectDTO projectDTO) {
-        if(projectDTO.getEmployeeList() == null){
+
             projectDTO.setEmployeeList(Collections.emptyList());
-        }
+        log.info("Save project");
         Project project = ProjectMapper.toEntity(projectDTO);
         Optional<Project> existingProject = projectRepo.findByName(project.getName());
         if (existingProject.isPresent()) {
@@ -38,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         Project savedProject = projectRepo.save(project);
-        log.info("Saving project: {}", savedProject);
+        log.info("Saved project with id: {}", savedProject.getId());
         return ProjectMapper.toDTO(savedProject);
     }
 
@@ -71,9 +74,6 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDTO delete(Long id) {
         Project project = projectRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project ", "id: " + id));
-        for (Employee employee : project.getEmployeeList()) {
-            employee.setProject(null);
-        }
         projectRepo.delete(project);
         log.info("Deleted project with id: {}", id);
         return ProjectMapper.toDTO(project);
@@ -86,6 +86,22 @@ public class ProjectServiceImpl implements ProjectService {
         existingProject.setName(project.getName());
         Project updatedProject = projectRepo.save(existingProject);
         log.info("Updated Project : {}", updatedProject);
+        return ProjectMapper.toDTO(updatedProject);
+    }
+
+    @Override
+    public ProjectDTO addEmployeeToProject(Long projectId, Long employeeId) {
+
+        Project project = projectRepo.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Project ", "id: " + projectId));
+
+        Employee employee = employeeRepo.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee ", "id: " + employeeId));
+        project.getEmployeeList().add(employee);
+        employee.setProject(project);
+        Project updatedProject = projectRepo.save(project);
+        Employee updatedEmployee = employeeRepo.save(employee);
+        log.info("Add employee {} in Project : {}", updatedEmployee, updatedProject);
         return ProjectMapper.toDTO(updatedProject);
     }
 

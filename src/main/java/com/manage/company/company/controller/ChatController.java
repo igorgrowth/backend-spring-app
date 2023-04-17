@@ -1,6 +1,6 @@
 package com.manage.company.company.controller;
 
-import com.manage.company.company.model.Message;
+import com.manage.company.company.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
