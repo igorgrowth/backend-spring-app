@@ -2,8 +2,10 @@ package com.manage.company.company.mapper;
 
 import com.manage.company.company.dto.EmployeeDTO;
 import com.manage.company.company.model.Employee;
+import com.manage.company.company.model.Project;
 
 public class EmployeeMapper {
+
     public static EmployeeDTO toDTO(Employee employee) {
         return EmployeeDTO.builder()
                 .id(employee.getId())
@@ -11,7 +13,7 @@ public class EmployeeMapper {
                 .lastName(employee.getLastName())
                 .email(employee.getEmail())
                 .position(employee.getPosition())
-                .project(employee.getProject())
+                //.projectDTO(ProjectMapper.toDTO(employee.getProject() != null ? employee.getProject() : null))
                 .build();
     }
     public static Employee toEntity(EmployeeDTO employeeDTO){
@@ -21,7 +23,8 @@ public class EmployeeMapper {
                 .lastName(employeeDTO.getLastName())
                 .email(employeeDTO.getEmail())
                 .position(employeeDTO.getPosition())
-                .project(employeeDTO.getProject())
+                //.project(employeeDTO.getProjectDTO() != null ? ProjectMapper.toEntity(employeeDTO.getProjectDTO()) : null)
+
                 .build();
     }
 }

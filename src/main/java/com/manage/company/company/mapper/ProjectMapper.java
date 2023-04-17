@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 public class ProjectMapper {
     public static ProjectDTO toDTO(Project project) {
+        if (project == null) {
+            return null;
+        }
         return ProjectDTO.builder()
                 .id(project.getId())
                 .name(project.getName())
@@ -16,7 +19,7 @@ public class ProjectMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
-    public static Project toEntity(ProjectDTO projectDTO){
+    public static Project toEntity(ProjectDTO projectDTO) {
         return Project.builder()
                 .id(projectDTO.getId())
                 .name(projectDTO.getName())
@@ -26,5 +29,4 @@ public class ProjectMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
-
 }

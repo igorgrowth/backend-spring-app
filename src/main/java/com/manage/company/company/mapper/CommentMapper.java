@@ -4,21 +4,23 @@ import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.model.Comment;
 
 public class CommentMapper {
-    public static CommentDTO toDTO(Comment comment){
+        public static CommentDTO toDTO(Comment comment){
             return CommentDTO.builder()
                     .id(comment.getId())
                     .text(comment.getText())
-                    .topic(comment.getTopic())
+                    .topicDTO(TopicMapper.toDTO(comment.getTopic()))
                     .date(comment.getDate())
+                    .userId(comment.getUserId())
                     .build();
         }
-    public static Comment toEntity(CommentDTO commentDTO){
-        return Comment.builder()
-                .id(commentDTO.getId())
-                .text(commentDTO.getText())
-                .topic(commentDTO.getTopic())
-                .date(commentDTO.getDate())
-                .build();
-    }
+        public static Comment toEntity(CommentDTO commentDTO){
+            return Comment.builder()
+                    .id(commentDTO.getId())
+                    .text(commentDTO.getText())
+                    .topic(TopicMapper.toEntity(commentDTO.getTopicDTO()))
+                    .date(commentDTO.getDate())
+                    .userId(commentDTO.getUserId())
+                    .build();
+        }
 
 }
