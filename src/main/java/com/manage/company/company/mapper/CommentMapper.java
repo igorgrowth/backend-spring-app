@@ -8,7 +8,6 @@ public class CommentMapper {
             return CommentDTO.builder()
                     .id(comment.getId())
                     .text(comment.getText())
-                    //.topicDTO(TopicMapper.toDTO(comment.getTopic()))
                     .date(comment.getDate())
                     .userId(comment.getUserId())
                     .build();
@@ -17,7 +16,6 @@ public class CommentMapper {
             return Comment.builder()
                     .id(commentDTO.getId())
                     .text(commentDTO.getText())
-                    //.topic(TopicMapper.toEntity(commentDTO.getTopicDTO()))
                     .date(commentDTO.getDate())
                     .userId(commentDTO.getUserId())
                     .build();
