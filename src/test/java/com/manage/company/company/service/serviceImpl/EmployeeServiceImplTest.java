@@ -1,11 +1,12 @@
 package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.EmployeeDTO;
-import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.entity.Employee;
 import com.manage.company.company.entity.Project;
 import com.manage.company.company.entity.enums.Position;
+import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.repository.EmployeeRepo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,7 @@ class EmployeeServiceImplTest {
     private EmployeeRepo employeeRepo;
 
     private Employee employee;
-    private EmployeeDTO EmployeeDTO;
+    private com.manage.company.company.dto.EmployeeDTO EmployeeDTO;
 
     @BeforeEach
     void setUp() {
@@ -195,6 +196,6 @@ class EmployeeServiceImplTest {
         assertEquals(updatedEmployeeDTO.getFirstName(), result.getFirstName());
         assertEquals(updatedEmployeeDTO.getLastName(), result.getLastName());
         assertEquals(updatedEmployeeDTO.getEmail(), result.getEmail());
-        assertEquals(updatedEmployeeDTO.getPosition(), result.getPosition());
+        Assertions.assertEquals(updatedEmployeeDTO.getPosition(), result.getPosition());
     }
 }

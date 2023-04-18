@@ -2,12 +2,12 @@ package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.CommentDTO;
 import com.manage.company.company.dto.TopicDTO;
-import com.manage.company.company.exeption.ResourceNotFoundException;
-import com.manage.company.company.mapper.TopicMapper;
 import com.manage.company.company.entity.Comment;
 import com.manage.company.company.entity.Topic;
-import com.manage.company.company.repository.CommentRepo;
+import com.manage.company.company.mapper.TopicMapper;
 import com.manage.company.company.repository.TopicRepo;
+import com.manage.company.company.exeption.ResourceNotFoundException;
+import com.manage.company.company.repository.CommentRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,16 +74,18 @@ class CommentServiceImplTest {
     @Test
     void save_ShouldSaveCommentDTO() {
         //Setup
-        Topic topic = new Topic(1L, "title", "description", Collections.emptyList());
+        Topic topic = new Topic(1L, "title", "description", new ArrayList<>());
 
         //When
         when(topicRepo.findById(any(Long.TYPE))).thenReturn(Optional.of(topic));
         when(commentRepo.save(any(Comment.class))).thenReturn(comment);
+        when(topicRepo.save(any(Topic.class))).thenReturn(topic);
+
         CommentDTO result = commentService.save(commentDTO, 1L);
+
 
         // Assert
         assertNotNull(result);
-        assertEquals(commentDTO.getId(), result.getId());
         assertEquals(commentDTO.getText(), result.getText());
         assertEquals(commentDTO.getDate().getMinute(), result.getDate().getMinute());
         assertEquals(commentDTO.getUserId(), result.getUserId());

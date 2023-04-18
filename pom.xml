@@ -80,6 +80,10 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -115,7 +119,64 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>8.5.13</version>
+					<configuration>
+						<driver>org.postgresql.Driver</driver>
+						<url>jdbc:postgresql://database-1.czzxjzvvbj6t.us-east-2.rds.amazonaws.com/intentdb</url>
+						<user>postgres</user>
+						<password>belero111</password>
+						<baselineOnMigrate>true</baselineOnMigrate>
+						<schemas>public</schemas>
+						<locations>
+							<location>
+								filesystem:src/main/resources/db/migration
+							</location>
+						</locations>
+					</configuration>
+				<executions>
+					<execution>
+						<id>clean-database</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>database-init</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>baseline</goal>
+						</goals>
+						<configuration>
+							<baselineVersion>1</baselineVersion>
+							<baselineDescription>Base version</baselineDescription>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>dev</build.profile.id>
+				<profileActive>dev</profileActive>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<build.profile.id>prod</build.profile.id>
+				<profileActive>prod</profileActive>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

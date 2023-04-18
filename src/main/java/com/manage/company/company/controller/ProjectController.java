@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("${url}/projects")
-@RequiredArgsConstructor
 public class ProjectController {
 
     private final ProjectService projectService;

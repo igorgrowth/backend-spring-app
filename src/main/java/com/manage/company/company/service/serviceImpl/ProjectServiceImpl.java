@@ -1,11 +1,11 @@
 package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.ProjectDTO;
+import com.manage.company.company.entity.Project;
 import com.manage.company.company.exeption.EntityAlreadyExistException;
 import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.ProjectMapper;
 import com.manage.company.company.entity.Employee;
-import com.manage.company.company.entity.Project;
 import com.manage.company.company.repository.EmployeeRepo;
 import com.manage.company.company.repository.ProjectRepo;
 import com.manage.company.company.service.ProjectService;

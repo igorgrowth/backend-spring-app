@@ -32,19 +32,25 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO save(CommentDTO commentDTO, long topicId) {
-        Comment comment = new Comment();
-        comment.setText(commentDTO.getText());
-        comment.setDate(LocalDateTime.now());
-        comment.setUserId(commentDTO.getUserId());
-
         Topic topic = topicRepo.findById(topicId)
                 .orElseThrow(() -> new ResourceNotFoundException("Topic", "id: " + topicId));
 
-        comment.setTopic(topic);
-        comment.setTopic(topic);
-        Comment savedComment = commentRepo.save(comment);
-        log.info("Comment saved: {}", savedComment);
-        return CommentMapper.toDTO(savedComment);
+        Comment comment = Comment.builder()
+                .text(commentDTO.getText())
+                .date(LocalDateTime.now())
+                .userId(commentDTO.getUserId())
+                .topic(topic)
+                .build();
+
+        topic.getCommentList().add(comment);
+
+        Topic savedTopic = topicRepo.save(topic);
+        CommentDTO savedCommentDTO = CommentMapper.toDTO(comment);
+        savedCommentDTO.setTopicId(savedTopic.getId());
+        savedCommentDTO.setUserId(savedTopic.getId());
+
+        log.info("Comment saved: {}", savedCommentDTO);
+        return savedCommentDTO;
     }
 
     @Override

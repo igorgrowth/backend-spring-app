@@ -1,8 +1,8 @@
 package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.ProjectDTO;
-import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.entity.Project;
+import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.repository.ProjectRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
