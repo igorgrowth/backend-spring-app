@@ -63,11 +63,13 @@ public class CommentServiceImpl implements CommentService {
         return new PageImpl<>(commentDTOs, pageable, commentsPage.getTotalElements());
     }
 
+
     @Override
     public CommentDTO getById(Long id) {
         Comment comment = commentRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment", "id: " + id));
         log.info("Getting comment by id: {}", id);
+        System.out.println(comment);
         return CommentMapper.toDTO(comment);
     }
 
