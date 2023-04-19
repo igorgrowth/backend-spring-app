@@ -2,12 +2,11 @@ package com.manage.company.company.service.serviceImpl;
 
 import com.manage.company.company.dto.EmployeeDTO;
 import com.manage.company.company.entity.Employee;
+import com.manage.company.company.exeption.EntityAlreadyExistException;
+import com.manage.company.company.exeption.ResourceNotFoundException;
 import com.manage.company.company.mapper.EmployeeMapper;
 import com.manage.company.company.repository.EmployeeRepo;
 import com.manage.company.company.service.EmployeeService;
-import com.manage.company.company.exeption.EntityAlreadyExistException;
-import com.manage.company.company.exeption.ResourceNotFoundException;
-import com.manage.company.company.repository.ProjectRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,17 +16,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
-    private final ProjectRepo projectRepo;
 
 
-    public EmployeeServiceImpl(EmployeeRepo employeeRepo, ProjectRepo projectRepo) {
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo) {
         this.employeeRepo = employeeRepo;
-        this.projectRepo = projectRepo;
     }
 
     @Override
@@ -35,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = EmployeeMapper.toEntity(employeeDTO);
         Optional<Employee> existingEmployee = employeeRepo.findByEmail(employee.getEmail());
         if (existingEmployee.isPresent()) {
-            throw new EntityAlreadyExistException("Email", employee.getEmail() + " already exists."  );
+            throw new EntityAlreadyExistException("Email", employee.getEmail() + " already exists.");
         }
 
         Employee savedEmployee = employeeRepo.save(employee);

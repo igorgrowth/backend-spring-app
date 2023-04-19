@@ -10,6 +10,7 @@ public class CommentMapper {
                     .text(comment.getText())
                     .date(comment.getDate())
                     .userId(comment.getUserId())
+                    .topicId(comment.getTopic().getId())
                     .build();
         }
         public static Comment toEntity(CommentDTO commentDTO){
