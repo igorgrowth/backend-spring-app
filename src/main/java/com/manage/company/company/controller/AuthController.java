@@ -42,7 +42,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     private JwtTokenProvider tokenProvider;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+    public AuthController    (AuthenticationManager authenticationManager, UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
